@@ -5,7 +5,7 @@ project(TgBot)
 option(ENABLE_TESTS "Set to ON to enable building of tests" OFF)
 
 ### sources
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
 include_directories(include)
 set(SRC_LIST
 	src/Api.cpp
@@ -48,6 +48,19 @@ set(LIB_LIST
 ### building project
 add_library(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries(${PROJECT_NAME} ${LIB_LIST})
+
+install(TARGETS ${PROJECT_NAME}
+		DESTINATION lib
+		EXPORT tgbot-cpp-targets)
+
+
+
+install(EXPORT tgbot-cpp-targets
+		DESTINATION lib/cmake/tgbot-cpp)
+
+#install(FILES ${TGBOT_SOURCE_DIR}/cmake/tgbot-cpp-config.cmake
+#		DESTINATION lib/cmake/tgbot-cpp)
+
 install(TARGETS ${PROJECT_NAME} DESTINATION lib)
 install(DIRECTORY include/ DESTINATION include)
 
